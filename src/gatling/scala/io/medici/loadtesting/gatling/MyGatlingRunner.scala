@@ -1,6 +1,14 @@
+package io.medici.loadtesting.gatling
+
+import java.util.UUID
+
 import io.gatling.app.Gatling
 import io.gatling.core.config.GatlingPropertiesBuilder
-import simulations._
+import io.medici.loadtesting.gatling.simulations._
+import io.medici.loadtesting.gatling.security.BitsyUserSecurity
+import io.medici.loadtesting.gatling.simulations.examples._
+import org.bitcoinj.params.MainNetParams
+import org.bitcoinj.wallet.Wallet
 
 object MyGatlingRunner {
 
@@ -44,6 +52,40 @@ object CsvFeederRunner {
   def main(args:Array[String]): Unit = {
     val props = new GatlingPropertiesBuilder
     props.simulationClass(classOf[CsvFeeder].getName)
+    Gatling.fromMap(props.build)
+  }
+}
+
+object UserMessageRunner {
+  def main(args: Array[String]): Unit = {
+    val netParams = MainNetParams.get()
+    val wallet = new Wallet(netParams)
+    val userId = UUID.randomUUID().toString
+    val deviceId = "asdf1234"
+    val email = "admin@bitsy.com"
+    val message = BitsyUserSecurity.generateRegistrationMessage(
+      wallet,
+      netParams,
+      userId,
+      deviceId,
+      email
+    )
+    println(s"Message from wallet: ${message.toString()}")
+  }
+}
+
+object CustomFeederRunner {
+  def main(args: Array[String]): Unit = {
+    val props = new GatlingPropertiesBuilder
+    props.simulationClass(classOf[CsvFeederToCustom].getName)
+    Gatling.fromMap(props.build)
+  }
+}
+
+object CustomGameFeederRunner {
+  def main(args: Array[String]): Unit = {
+    val props = new GatlingPropertiesBuilder
+    props.simulationClass(classOf[CustomGameFeeder].getName)
     Gatling.fromMap(props.build)
   }
 }

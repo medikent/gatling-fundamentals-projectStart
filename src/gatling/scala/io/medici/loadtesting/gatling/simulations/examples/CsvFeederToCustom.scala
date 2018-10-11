@@ -1,20 +1,20 @@
-package simulations
+package io.medici.loadtesting.gatling.simulations.examples
 
-import baseconfig.BaseSimulation
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ChainBuilder
 import io.gatling.http.Predef._
+import io.medici.loadtesting.gatling.baseconfig.examples.BaseSimulation
 
-class CsvFeeder extends BaseSimulation {
+class CsvFeederToCustom extends BaseSimulation {
 
-  val csvFeeder = csv("gameDataFile.csv").circular
+  var idNumbers = (1 to 10).iterator
+  val customFeeder = Iterator.continually(Map("gameId" -> idNumbers.next()))
 
   def getSpecificVideoGame(): ChainBuilder = {
     repeat(10) {
-      feed(csvFeeder)
+      feed(customFeeder)
         .exec(http("Get Specific Video Game")
           .get("videogames/${gameId}")
-          .check(jsonPath("$.name").is("${gameName}"))
           .check(status.is(200)))
         .pause(1)
 

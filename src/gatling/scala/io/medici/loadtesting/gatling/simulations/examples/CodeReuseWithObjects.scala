@@ -1,9 +1,9 @@
-package simulations
+package io.medici.loadtesting.gatling.simulations.examples
 
-import baseconfig.BaseSimulation
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ChainBuilder
 import io.gatling.http.Predef._
+import io.medici.loadtesting.gatling.baseconfig.examples.BaseSimulation
 
 import scala.concurrent.duration.DurationInt
 
