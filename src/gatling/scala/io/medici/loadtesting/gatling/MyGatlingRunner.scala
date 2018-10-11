@@ -89,3 +89,27 @@ object CustomGameFeederRunner {
     Gatling.fromMap(props.build)
   }
 }
+
+object BasicLoadRunner {
+  def main(args: Array[String]): Unit = {
+    val props = new GatlingPropertiesBuilder
+    props.simulationClass(classOf[BasicLoadSimulation].getName)
+    Gatling.fromMap(props.build)
+  }
+}
+
+object RampUsersRunner {
+  def main(args: Array[String]): Unit = {
+    val props = new GatlingPropertiesBuilder
+    props.simulationClass(classOf[RampUsersLoadSimulation].getName)
+    Gatling.fromMap(props.build)
+  }
+}
+
+object FixedDurationRunner {
+  def main(args: Array[String]): Unit = {
+    val props = new GatlingPropertiesBuilder
+    props.simulationClass(classOf[FixedDurationLoadSimulation].getName)
+    Gatling.fromMap(props.build)
+  }
+}
