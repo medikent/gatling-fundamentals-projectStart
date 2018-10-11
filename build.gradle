@@ -1,10 +1,10 @@
 plugins {
     id 'scala'
-    id "com.github.lkishalmi.gatling" version "0.7.3"
+    id "com.github.lkishalmi.gatling" version "0.7.4"
 }
 
 dependencies {
-    compile 'org.scala-lang:scala-library:2.11.8'
+    compile 'org.scala-lang:scala-library:2.12.7'
 }
 
 // In this section you declare where to find the dependencies of your project

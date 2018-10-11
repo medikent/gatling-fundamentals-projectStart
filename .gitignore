@@ -9,3 +9,6 @@
 gen_java
 build
 bin
+.vscode
+out
+results
